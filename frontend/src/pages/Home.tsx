@@ -110,22 +110,22 @@ const Home: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto">
       {/* Hero Section */}
-      <div className="text-center mb-12">
+      <div className="text-center mb-8 md:mb-12 px-4">
         <div className="relative">
-          <h1 className="heading-primary mb-4">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-primary-900 mb-4">
             {searchQuery ? (
               <>
-                <Search className="inline-block h-8 w-8 mr-3 text-accent-500" />
-                Search Results for "{searchQuery}"
+                <Search className="inline-block h-6 w-6 md:h-8 md:w-8 mr-2 md:mr-3 text-accent-500" />
+                <span className="block sm:inline">Search Results for "{searchQuery}"</span>
               </>
             ) : (
               <>
-                Discover & Share Knowledge
-                <Sparkles className="inline-block h-8 w-8 ml-3 text-accent-500 animate-pulse-soft" />
+                <span className="block sm:inline">Discover & Share Knowledge</span>
+                <Sparkles className="inline-block h-6 w-6 md:h-8 md:w-8 ml-2 md:ml-3 text-accent-500 animate-pulse-soft" />
               </>
             )}
           </h1>
-          <p className="text-lg text-primary-600 max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-primary-600 max-w-2xl mx-auto">
             {searchQuery 
               ? `Found ${questions.length} question${questions.length !== 1 ? 's' : ''} matching your search`
               : 'Join our community of developers asking questions, sharing knowledge, and growing together'
@@ -135,33 +135,33 @@ const Home: React.FC = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="flex flex-wrap justify-center gap-4 mb-12">
+      <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12 px-4">
         {searchQuery && (
           <Link
             to="/"
-            className="btn-secondary inline-flex items-center"
+            className="btn-secondary inline-flex items-center text-sm md:text-base px-4 md:px-6 py-2 md:py-3"
           >
-            <Search className="h-4 w-4 mr-2" />
+            <Search className="h-3 w-3 md:h-4 md:w-4 mr-2" />
             Clear Search
           </Link>
         )}
         {user && (
           <Link
             to="/ask"
-            className="btn-primary inline-flex items-center"
+            className="btn-primary inline-flex items-center text-sm md:text-base px-4 md:px-6 py-2 md:py-3"
           >
-            <Plus className="h-5 w-5 mr-2" />
+            <Plus className="h-4 w-4 md:h-5 md:w-5 mr-2" />
             Ask Question
           </Link>
         )}
         {!searchQuery && (
           <button
             onClick={() => {setSortBy('score'); setOrder('desc');}}
-            className={`btn-secondary inline-flex items-center ${
+            className={`btn-secondary inline-flex items-center text-sm md:text-base px-4 md:px-6 py-2 md:py-3 ${
               sortBy === 'score' && order === 'desc' ? 'bg-accent-500 text-white border-accent-500' : ''
             }`}
           >
-            <TrendingUp className="h-4 w-4 mr-2" />
+            <TrendingUp className="h-3 w-3 md:h-4 md:w-4 mr-2" />
             Trending
           </button>
         )}

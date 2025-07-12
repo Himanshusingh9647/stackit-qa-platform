@@ -37,10 +37,10 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onDelete }) => {
   const isNew = new Date(question.createdAt).getTime() > Date.now() - 24 * 60 * 60 * 1000;
 
   return (
-    <div className="card p-6 group hover:scale-[1.02] transition-all duration-300">
-      <div className="flex space-x-6">
+    <div className="card p-4 md:p-6 group hover:scale-[1.02] transition-all duration-300">
+      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
         {/* Vote Section */}
-        <div className="flex flex-col items-center space-y-3 min-w-0">
+        <div className="flex flex-row md:flex-col items-center justify-start md:justify-center space-x-3 md:space-x-0 md:space-y-3 min-w-0 md:min-w-fit">
           <VoteButton
             targetType="question"
             targetId={question.id}
@@ -48,7 +48,11 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onDelete }) => {
             upvotes={question.upvotes}
             downvotes={question.downvotes}
           />
-          <div className="flex items-center text-sm text-primary-500 bg-primary-50 px-2 py-1 rounded-lg">
+          <div className="flex items-center text-sm text-primary-500 bg-primary-50 px-2 py-1 rounded-lg md:hidden">
+            <MessageCircle className="h-4 w-4 mr-1" />
+            <span className="font-medium">{question._count.answers}</span>
+          </div>
+          <div className="hidden md:flex items-center text-sm text-primary-500 bg-primary-50 px-2 py-1 rounded-lg">
             <MessageCircle className="h-4 w-4 mr-1" />
             <span className="font-medium">{question._count.answers}</span>
           </div>
@@ -76,9 +80,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onDelete }) => {
                 to={`/question/${question.id}`}
                 className="block group-hover:text-accent-600 transition-colors"
               >
-                <h3 className="text-xl font-bold text-primary-900 mb-3 leading-tight">
+                <h3 className="text-lg md:text-xl font-bold text-primary-900 mb-3 leading-tight">
                   {question.title}
-                  <ChevronRight className="inline-block h-5 w-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ChevronRight className="inline-block h-4 w-4 md:h-5 md:w-5 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </h3>
               </Link>
             </div>
@@ -96,9 +100,9 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onDelete }) => {
             )}
           </div>
           
-          <p className="text-primary-700 text-base leading-relaxed mb-4">
-            {question.description.length > 200
-              ? `${question.description.substring(0, 200)}...`
+          <p className="text-primary-700 text-sm md:text-base leading-relaxed mb-4">
+            {question.description.length > 150
+              ? `${question.description.substring(0, 150)}...`
               : question.description}
           </p>
 
@@ -120,15 +124,15 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onDelete }) => {
           </div>
 
           {/* Meta Information */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+            <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-6">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-accent-500 rounded-full flex items-center justify-center">
-                  <User className="h-4 w-4 text-white" />
+                <div className="w-6 h-6 md:w-8 md:h-8 bg-gradient-to-r from-primary-600 to-accent-500 rounded-full flex items-center justify-center">
+                  <User className="h-3 w-3 md:h-4 md:w-4 text-white" />
                 </div>
                 <div className="flex flex-col">
                   <div className="flex items-center space-x-2">
-                    <span className="text-sm font-medium text-primary-800">{question.author.username}</span>
+                    <span className="text-xs md:text-sm font-medium text-primary-800">{question.author.username}</span>
                     {question.author.isAdmin && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gradient-to-r from-accent-500 to-accent-600 text-white">
                         <Crown className="h-3 w-3 mr-1" />
@@ -139,8 +143,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, onDelete }) => {
                 </div>
               </div>
               
-              <div className="flex items-center text-sm text-primary-500">
-                <Clock className="h-4 w-4 mr-1" />
+              <div className="flex items-center text-xs md:text-sm text-primary-500">
+                <Clock className="h-3 w-3 md:h-4 md:w-4 mr-1" />
                 <span>{formatDateTime(question.createdAt)}</span>
               </div>
             </div>

@@ -43,10 +43,10 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary-50 via-white to-primary-100">
+    <div className="min-h-screen flex items-center justify-center py-8 md:py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary-50 via-white to-primary-100">
       <div className="max-w-md w-full">
         {/* Card Container */}
-        <div className="card p-8 animate-fade-in">
+        <div className="card p-6 md:p-8 animate-fade-in">
           {/* Header */}
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">

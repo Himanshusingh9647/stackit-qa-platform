@@ -77,13 +77,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ className = '' }) => {
           </div>
           
           {/* Search icon */}
-          <Search className={`absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 transition-colors duration-200 z-10 ${
+          <Search className={`absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 transition-colors duration-200 z-10 ${
             isFocused ? 'text-accent-500' : 'text-primary-400'
           }`} />
           
           {/* AI sparkle icon */}
           {searchQuery && (
-            <Sparkles className="absolute right-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-accent-500 z-10 animate-pulse-soft" />
+            <Sparkles className="absolute right-3 md:right-4 top-1/2 transform -translate-y-1/2 h-3 w-3 md:h-4 md:w-4 text-accent-500 z-10 animate-pulse-soft" />
           )}
           
           <input
@@ -93,7 +93,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ className = '' }) => {
             onKeyPress={handleKeyPress}
             onFocus={() => setIsFocused(true)}
             placeholder="Search questions, topics, or ask anything..."
-            className={`w-full pl-12 pr-12 py-4 bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500/50 focus:border-accent-500 transition-all duration-300 text-primary-900 placeholder-primary-400 text-sm font-medium relative z-10 ${
+            className={`w-full pl-10 md:pl-12 pr-10 md:pr-12 py-3 md:py-4 bg-white/80 backdrop-blur-sm border border-primary-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-accent-500/50 focus:border-accent-500 transition-all duration-300 text-primary-900 placeholder-primary-400 text-sm font-medium relative z-10 ${
               isFocused ? 'shadow-elegant-lg bg-white' : 'shadow-elegant hover:shadow-elegant-lg'
             }`}
           />
