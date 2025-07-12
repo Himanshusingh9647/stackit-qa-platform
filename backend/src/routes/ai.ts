@@ -18,18 +18,8 @@ interface AIRequest {
   type: 'improve' | 'generate' | 'summarize';
 }
 
-interface AuthRequest extends Request {
-  user?: {
-    id: string;
-    email: string;
-    username: string;
-    isAdmin: boolean;
-    isBanned: boolean;
-  };
-}
-
 // Improve question text
-router.post('/improve-question', auth, async (req: AuthRequest, res: Response) => {
+router.post('/improve-question', auth, async (req: Request, res: Response) => {
   try {
     const { text, title } = req.body;
 
@@ -56,7 +46,7 @@ router.post('/improve-question', auth, async (req: AuthRequest, res: Response) =
 });
 
 // Generate question from topic
-router.post('/generate-question', auth, async (req: AuthRequest, res: Response) => {
+router.post('/generate-question', auth, async (req: Request, res: Response) => {
   try {
     const { topic, tags, difficulty } = req.body;
 
@@ -83,7 +73,7 @@ router.post('/generate-question', auth, async (req: AuthRequest, res: Response) 
 });
 
 // Summarize long text
-router.post('/summarize', auth, async (req: AuthRequest, res: Response) => {
+router.post('/summarize', auth, async (req: Request, res: Response) => {
   try {
     const { text, maxLength } = req.body;
 

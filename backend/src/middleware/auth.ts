@@ -2,17 +2,7 @@ import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import prisma from '../lib/prisma';
 
-interface AuthRequest extends Request {
-  user?: {
-    id: string;
-    email: string;
-    username: string;
-    isAdmin: boolean;
-    isBanned: boolean;
-  };
-}
-
-const auth = async (req: AuthRequest, res: Response, next: NextFunction) => {
+const auth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
     
@@ -41,7 +31,7 @@ const auth = async (req: AuthRequest, res: Response, next: NextFunction) => {
   }
 };
 
-const admin = (req: AuthRequest, res: Response, next: NextFunction) => {
+const admin = (req: Request, res: Response, next: NextFunction) => {
   if (!req.user?.isAdmin) {
     return res.status(403).json({ error: 'Access denied. Admin privileges required.' });
   }
