@@ -11,6 +11,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# But allow frontend .env for build config
+!frontend/.env
+
 # Production builds
 frontend/build/
 backend/dist/

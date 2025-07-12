@@ -47,7 +47,7 @@ const QuestionDetail: React.FC = () => {
     if (id) {
       fetchQuestion();
     }
-  }, [id]);
+  }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (id && user) {

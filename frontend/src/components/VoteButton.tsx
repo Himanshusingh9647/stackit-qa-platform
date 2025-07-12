@@ -23,25 +23,23 @@ const VoteButton: React.FC<VoteButtonProps> = ({
 }) => {
   const { user } = useAuth();
   const [score, setScore] = useState(initialScore);
-  const [upvotes, setUpvotes] = useState(initialUpvotes);
-  const [downvotes, setDownvotes] = useState(initialDownvotes);
   const [userVote, setUserVote] = useState<'UP' | 'DOWN' | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    const fetchUserVote = async () => {
+      try {
+        const response = await api.get(`/votes/${targetType}/${targetId}`);
+        setUserVote(response.data.userVote);
+      } catch (error) {
+        console.error('Error fetching user vote:', error);
+      }
+    };
+
     if (user) {
       fetchUserVote();
     }
   }, [user, targetId, targetType]);
-
-  const fetchUserVote = async () => {
-    try {
-      const response = await api.get(`/votes/${targetType}/${targetId}`);
-      setUserVote(response.data.userVote);
-    } catch (error) {
-      console.error('Error fetching user vote:', error);
-    }
-  };
 
   const handleVote = async (voteType: 'UP' | 'DOWN') => {
     if (!user) {
@@ -58,8 +56,6 @@ const VoteButton: React.FC<VoteButtonProps> = ({
       });
 
       setScore(response.data.score);
-      setUpvotes(response.data.upvotes);
-      setDownvotes(response.data.downvotes);
       setUserVote(response.data.userVote);
 
       // Show feedback

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Plus, Filter, Sparkles, TrendingUp, Clock, Search, Zap } from 'lucide-react';
+import { Plus, Filter, Sparkles, TrendingUp, Search, Zap } from 'lucide-react';
 import { Question, QuestionsResponse } from '../types';
 import { useAuth } from '../contexts/AuthContext';
 import QuestionCard from '../components/QuestionCard';
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     fetchQuestions();
-  }, [sortBy, order, searchQuery]);
+  }, [sortBy, order, searchQuery]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (user) {
