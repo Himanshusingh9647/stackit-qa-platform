@@ -47,7 +47,28 @@ const VoteButton: React.FC<VoteButtonProps> = ({
       return;
     }
 
+    // Optimistic UI update
     setIsLoading(true);
+    const prevScore = score;
+    const prevUserVote = userVote;
+    let newScore = score;
+    let newUserVote: 'UP' | 'DOWN' | null = userVote;
+
+    if (userVote === voteType) {
+      // Remove vote
+      newScore = voteType === 'UP' ? score - 1 : score + 1;
+      newUserVote = null;
+    } else {
+      if (userVote === null) {
+        newScore = voteType === 'UP' ? score + 1 : score - 1;
+      } else {
+        newScore = voteType === 'UP' ? score + 2 : score - 2;
+      }
+      newUserVote = voteType;
+    }
+    setScore(newScore);
+    setUserVote(newUserVote);
+
     try {
       const response = await api.post('/votes', {
         type: voteType,
@@ -65,6 +86,9 @@ const VoteButton: React.FC<VoteButtonProps> = ({
         toast.success('Vote removed');
       }
     } catch (error: any) {
+      // Revert optimistic update
+      setScore(prevScore);
+      setUserVote(prevUserVote);
       const message = error.response?.data?.error || 'Failed to vote';
       toast.error(message);
     } finally {

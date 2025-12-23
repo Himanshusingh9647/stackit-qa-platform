@@ -119,15 +119,23 @@ router.post('/', auth, [
       });
     }
 
-    // Get updated vote counts
-    const votes = await prisma.vote.findMany({
-      where: {
-        [targetType === 'question' ? 'questionId' : 'answerId']: targetId
-      }
-    });
-
-    const upvotes = votes.filter(vote => vote.type === 'UP').length;
-    const downvotes = votes.filter(vote => vote.type === 'DOWN').length;
+    // Get updated vote counts using aggregate queries
+    const [upvotesAgg, downvotesAgg] = await Promise.all([
+      prisma.vote.count({
+        where: {
+          type: 'UP',
+          [targetType === 'question' ? 'questionId' : 'answerId']: targetId
+        }
+      }),
+      prisma.vote.count({
+        where: {
+          type: 'DOWN',
+          [targetType === 'question' ? 'questionId' : 'answerId']: targetId
+        }
+      })
+    ]);
+    const upvotes = upvotesAgg;
+    const downvotes = downvotesAgg;
     const score = upvotes - downvotes;
 
     // Emit real-time event
